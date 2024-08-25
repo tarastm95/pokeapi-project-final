@@ -1,19 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from './store/store'; // Переконайтесь, що store експортується з цього файлу
+import MainLayout from './layouts/MainLayout';
+import FavoritePage from './pages/FavoritePage';
+import PokemonsPage from './pages/PokemonsPage';
+import SearchPage from './pages/SearchPage';
+import ErrorLayout from './layouts/ErrorLayout';
+import PokemonPage from "./pages/PokemonPage";
 
+// Створення кореневого елемента
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+    document.getElementById('root') as HTMLElement
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+// Налаштування маршрутизатора
+const router = createBrowserRouter([{
+    path: "/", element: <MainLayout/>, errorElement: <ErrorLayout/>, children: [
+        { path: "favorite", element: <FavoritePage/> },
+        { path: "pokemons", element: <PokemonsPage/> },
+        { path: "search", element: <SearchPage/> },
+        { path: "pokemon/:id", element: <PokemonPage/> },
+        { element: <PokemonsPage/>, index: true }
+    ]
+}]);
+
+// Рендеринг кореневого елемента
+root.render(
+    <Provider store={store}>
+        <RouterProvider router={router}/>
+    </Provider>
+);
+
+// Якщо ви хочете почати вимірювання продуктивності у вашому додатку,
+// передайте функцію для запису результатів (наприклад: reportWebVitals(console.log))
+// або надішліть до аналітичного кінцевого пункту. Дізнайтесь більше: https://bit.ly/CRA-vitals
 reportWebVitals();
