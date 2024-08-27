@@ -1,19 +1,16 @@
-// pages/FavoritePage.tsx
-
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store/store'; // Імпортуйте тип RootState з вашого store
-import PokemonList from '../components/PokemonList'; // Ваш компонент для відображення покемона
+import { RootState } from '../store/store';
+import PokemonList from '../components/PokemonList';
 
 const FavoritePage: React.FC = () => {
-    // Отримання улюблених покемонів з Redux Store
     const favoritePokemons = useSelector((state: RootState) => state.pokemon.favoritePokemons);
 
     return (
         <div>
-            <h1>Улюблені покемони</h1>
+            <h1>Favorite Pokémon</h1>
             {favoritePokemons.length === 0 ? (
-                <p>Немає улюблених покемонів.</p>
+                <p>No favorite Pokémon.</p>
             ) : (
                 <div>
                     {favoritePokemons.map(pokemon => (

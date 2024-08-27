@@ -1,15 +1,15 @@
 export interface Pokemon {
     name: string;
     url: string;
-    id: number; // Ідентифікатор покемона
-    image: string; // URL зображення покемона
+    id: number;
+    image: string;
 }
 
 export interface PokemonListResponse {
-    count: number; // Загальна кількість покемонів
-    next: string | null; // URL для наступної сторінки або null, якщо наступної сторінки немає
-    previous: string | null; // URL для попередньої сторінки або null, якщо попередньої сторінки немає
-    results: Pokemon[]; // Масив покемонів на поточній сторінці
+    count: number;
+    next: string | null;
+    previous: string | null;
+    results: Pokemon[];
 }
 
 export interface PokemonAbility {
@@ -41,11 +41,30 @@ export interface PokemonForm {
 }
 
 export interface PokemonFormDetails {
-    name: string;
     sprites: {
         front_default: string;
+        back_default?: string;
+        front_shiny?: string;
+        back_shiny?: string;
+        other?: {
+            dream_world?: {
+                front_default: string;
+            };
+            'official-artwork'?: {
+                front_default: string;
+            };
+        };
     };
-    // Додайте інші поля, які вам потрібні
+    name: string;
+    order?: number;
+    is_battle_only?: boolean;
+    is_default?: boolean;
+    is_mega?: boolean;
+    form_order?: number;
+    version_group?: {
+        name: string;
+    };
+    form_name?: string;
 }
 
 export interface PokemonDetails {
@@ -57,5 +76,10 @@ export interface PokemonDetails {
     sprites: {
         front_default: string;
     };
-    forms: { url: string; name: string }[]; // Додайте це поле для форм
+    forms: { url: string; name: string }[];
+}
+
+export interface PokemonFormDetails {
+    id: number;
+    name: string;
 }
